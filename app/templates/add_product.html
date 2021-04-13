@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add product</title>
+</head>
+<body>
+    <a href="{% url 'product-list' %}">
+        product list
+    </a>
+    <form action="{% url 'add-product' %}" method="post">
+        {% csrf_token %}
+        {{ error }}
+        <input type="text" name="name" placeholder="name">
+        <input type="number" name="quantity" placeholder="quantity">
+        <input type="submit">
+    </form>
+</body>
+</html>
