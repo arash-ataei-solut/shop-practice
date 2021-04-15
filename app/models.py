@@ -2,9 +2,20 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class Product(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=100)
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True, related_name='child',
+        related_query_name='child'
+    )
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=100, unique=True)
     quantity = models.IntegerField()
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True)
 
 
 class Cart(models.Model):
@@ -18,5 +29,5 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     products = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='carts', related_query_name='cart')
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default=1)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items', related_query_name='item')

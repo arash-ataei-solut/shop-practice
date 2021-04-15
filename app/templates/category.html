@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>product list</title>
+    <title>category</title>
 </head>
 <body>
     {% for p in p_list %}
@@ -17,11 +17,6 @@
         </form>
     {% empty %}
         there are no product.
-    {% endfor %}
-    {% for cat in cat_list %}
-        <p><a href="{% url 'category' name=cat.name %}">{{ cat.name }}</a></p>
-    {% empty %}
-        no category
     {% endfor %}
 </body>
 </html>
