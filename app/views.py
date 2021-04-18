@@ -7,20 +7,6 @@ from django.urls import reverse
 from app.models import Product, Cart, CartItem, Category
 
 
-def login_view(request):
-    if request.method == 'GET':
-        return render(request, 'login.html', {})
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user:
-            login(request, user)
-            return render(request, 'profile.html', {})
-        else:
-            return render(request, template_name='login.html', context={'error': 'login failed.'})
-
-
 def add_product(request):
     if request.method == 'GET':
         return render(request, 'add_product.html', {})
@@ -47,7 +33,7 @@ def product_list(request):
         #     )
         p_list = Product.objects.all()
         if q:
-            p_list = p_list.filter(name__contains=q)
+            p_list = p_list.filter(name__icontains=q)
 
         cat_list = Category.objects.filter(child__isnull=True)
         return render(request, 'product_list.html', {'p_list': p_list, 'cat_list': cat_list})
@@ -92,7 +78,7 @@ def remove_from_cart(request):
 def category_view(request, name):
     if request.method == 'GET':
         category = get_object_or_404(Category, name=name)
-        if category.child:
+        if category.child.count() >= 1:
             raise Http404()
         return render(request, 'category.html', {'p_list': category.product_set.all()})
 

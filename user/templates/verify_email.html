@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>verify email</title>
+</head>
+<body>
+{% if request.user.email %}
+<form action="{% url 'verify-email' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="email" value="{{ request.user.email }}">
+    <input type="submit">
+</form>
+{% else %}
+    You have not email address.
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>verify code</title>
+</head>
+<body>
+<h>check your email.</h>
+<form action="{% url 'verify-code' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="code">
+    <input type="submit">
+</form>
+</body>
+</html>

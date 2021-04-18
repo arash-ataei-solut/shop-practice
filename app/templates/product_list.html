@@ -5,6 +5,14 @@
     <title>product list</title>
 </head>
 <body>
+
+    <dev>
+        <form action="{{ request.path }}">
+            <input type="text" name="q">
+            <input type="submit">
+        </form>
+    </dev>
+
     {% for p in p_list %}
         <a target="_blank" href="{% url 'product-info' p.pk %}"><p>{{ p.name }} {{ p.quantity }}</p></a>
         <form action="{% url 'add-to-cart' %}" method="post">
@@ -18,10 +26,13 @@
     {% empty %}
         there are no product.
     {% endfor %}
+    <ul>
+        <h>categories</h>
     {% for cat in cat_list %}
-        <p><a href="{% url 'category' name=cat.name %}">{{ cat.name }}</a></p>
+        <li><a href="{% url 'category' name=cat.name %}">{{ cat.name }}</a></li>
     {% empty %}
         no category
     {% endfor %}
+    </ul>
 </body>
 </html>
