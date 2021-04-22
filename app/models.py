@@ -17,6 +17,10 @@ class Product(models.Model):
     quantity = models.IntegerField()
     category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True)
 
+    @property
+    def num_of_cart_item(self):
+        return self.carts.count()
+
 
 class Cart(models.Model):
     STATUS_CHOICES = {

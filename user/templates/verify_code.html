@@ -8,6 +8,7 @@
 <h>check your email.</h>
 <form action="{% url 'verify-code' %}" method="post">
     {% csrf_token %}
+    {{ error }}
     <input type="text" name="code">
     <input type="submit">
 </form>
